@@ -107,6 +107,168 @@ int main()
                     cout<<"Error: Please enter options (1-6)only! \n"<<endl;
                     break;
             }
+           
+           string userName;
+           bool invalid;
+           do {
+            cout << "Enter your username: ";
+            getline(cin, userName);
+            invalid = false;
+            if (userName.empty()) {
+             cout << "Error: Usename cannot be empty.\n";
+             invalid = true;
+             continue;
+            }
+            for (char c : userName) {
+             if (!isalnum(c) && !issapace(c)) {
+              cout << "Error: username may only contain letter, digits, and spaces.\n";
+              invalid = true;
+              break;
+             }
+            }
+           } while (invalid);
+           cout << " welcome, " << userName <<! Lets begain.\n\n";
+           int rand1, rand2;
+           do {
+            rand1 = rand() % 51 + 50:
+             rand2 = rand() % 51 + 50;
+           } while (rand1 >= rand2)
+            enum menu { MULTIPLY = 1, AVERAGE, REVEAL, GIVEUP, EXIT };
+           int choice;
+           cout << "Menu:\n";
+           cout << "1. MULTIPLY\n";
+           cout << "2. DIVIDE\n";
+           cout << "3. AVERAGE\n";
+           cout << "4. REVEAL FIRST NUMBER\n";
+           cout << "5. GIVE UP\n";
+           cout << "6. EXIT\n";
+           cout << "Enter your choice (1–6): ";
+           cin >> choice;
+           int points = 50;
+            bool revealedFirst = false;
+            bool playAgain = true;
+
+           while (playAgain && points >= 0) {
+
+    // Generate new numbers each round
+    do {
+        rand1 = rand() % 51 + 50;
+        rand2 = rand() % 51 + 50;
+    } while (rand1 >= rand2);
+
+    revealedFirst = false;
+
+    bool solved = false;
+
+    while (!solved && points >= 0) {
+
+        cout << "\nCurrent Points: " << points << "\n";
+        cout << "Menu:\n";
+        cout << "1. MULTIPLY\n";
+        cout << "2. DIVIDE\n";
+        cout << "3. AVERAGE\n";
+        cout << "4. REVEAL FIRST NUMBER\n";
+        cout << "5. GIVE UP\n";
+        cout << "6. EXIT\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+
+        case MULTIPLY: {
+            int guess;
+            int product = rand1 * rand2;
+
+            cout << "Guess the PRODUCT: ";
+            cin >> guess;
+
+            if (abs(product - guess) < 50) {
+                points += 5;
+                cout << "Correct! Points: " << points << endl;
+                cout << "Play another game? (y/n): ";
+                char ans; cin >> ans;
+                if (ans == 'y' || ans == 'Y') solved = true;
+                else playAgain = false;
+            } else {
+                points--;
+                cout << "Incorrect. Points: " << points << endl;
+            }
+            break;
+        }
+
+        case DIVIDE: {
+            double guess;
+            double quotient = (double)rand1 / rand2;
+
+            cout << "Guess the QUOTIENT: ";
+            cin >> guess;
+
+            if (fabs(quotient - guess) < 0.5) {
+                points += 5;
+                cout << "Correct! Points: " << points << endl;
+                cout << "Play another game? (y/n): ";
+                char ans; cin >> ans;
+                if (ans == 'y' || ans == 'Y') solved = true;
+                else playAgain = false;
+            } else {
+                points--;
+                cout << "Incorrect. Points: " << points << endl;
+            }
+            break;
+        }
+
+        case AVERAGE: {
+            double guess;
+            double avg = (rand1 + rand2) / 2.0;
+
+            cout << "Guess the AVERAGE: ";
+            cin >> guess;
+
+            if (fabs(avg - guess) < 2.0) {
+                points += 5;
+                cout << "Correct! Points: " << points << endl;
+                cout << "Play another game? (y/n): ";
+                char ans; cin >> ans;
+                if (ans == 'y' || ans == 'Y') solved = true;
+                else playAgain = false;
+            } else {
+                points--;
+                cout << "Incorrect. Points: " << points << endl;
+            }
+            break;
+        }
+
+        case REVEAL:
+            if (!revealedFirst) {
+                cout << "First random number: " << rand1 << endl;
+                points -= 3;
+                revealedFirst = true;
+            } else {
+                cout << "Error: You already revealed this number.\n";
+            }
+            break;
+
+        case GIVEUP:
+            cout << "You gave up! Numbers were: " << rand1 << " and " << rand2 << endl;
+            cout << "Play another game? (y/n): ";
+            char ans;
+            cin >> ans;
+            if (ans == 'y' || ans == 'Y') solved = true;
+            else playAgain = false;
+            break;
+
+        case EXIT:
+            cout << "Goodbye, " << userName << "! Final points: " << points << endl;
+            return 0;
+
+        default:
+            cout << "Invalid choice. Try again.\n";
+        }
+    }
+}
+
+cout << "Game over! Your points fell below zero.\n";
+               }
             }
         }
     return 0;
